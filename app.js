@@ -1,3 +1,5 @@
+const { Builder, By, error } = require("selenium-webdriver");
+
 const testTIC = "TIC 103509957";
 
 function buildLink(TIC_string) {
@@ -17,3 +19,18 @@ function buildLink(TIC_string) {
 }
 
 const link = buildLink(testTIC);
+
+async function displayArticles(link) {
+    //launch the browser
+    let driver = await new Builder().forBrowser("chrome").build();
+
+    try {
+        await driver.get(link);
+
+        
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+displayArticles(link);
