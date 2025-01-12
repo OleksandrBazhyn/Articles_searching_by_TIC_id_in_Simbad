@@ -1,0 +1,11 @@
+{
+  "name": "articles_searching_by_tic_id_in_simbad",
+  "version": "1.0.0",
+  "description": "This project is searching articles links by TIC identificator in simbad. Returns links",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
