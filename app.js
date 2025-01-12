@@ -30,6 +30,26 @@ async function findArticles(link) {
         let button = await driver.findElement(By.css("input[value='Display']"));
 
         await button.click();
+
+        const articleLinks = await driver.findElements(By.xpath('//a[contains(@href, "simbad/sim-ref?bibcode")]'));
+
+        // Перевіряємо, чи є посилання
+        if (articleLinks.length === 0) {
+            console.log('Жодного посилання на статтю не знайдено.');
+            return;
+        }
+
+        console.log(`Знайдено ${articleLinks.length} статей.`);
+
+        // Натискаємо на всі знайдені посилання або обробляємо їх
+        for (const [index, link] of articleLinks.entries()) {
+            const text = await link.getText(); // Отримати текст посилання
+            console.log(`Стаття ${index + 1}: ${text}`);
+            
+            // Якщо потрібно натиснути:
+            // await link.click();
+            // break; // Якщо треба натиснути лише перше
+        }
     } catch (error) {
         console.error(error);
     }
