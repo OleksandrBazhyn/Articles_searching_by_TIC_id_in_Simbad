@@ -27,7 +27,9 @@ async function displayArticles(link) {
     try {
         await driver.get(link);
 
-        
+        let button = await driver.findElement(By.css("input[value='Display']"));
+
+        await button.click();
     } catch (error) {
         console.error(error);
     }
