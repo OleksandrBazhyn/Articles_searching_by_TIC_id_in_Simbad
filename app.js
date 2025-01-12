@@ -20,7 +20,7 @@ function buildLink(TIC_string) {
 
 const link = buildLink(testTIC);
 
-async function displayArticles(link) {
+async function findArticles(link) {
     //launch the browser
     let driver = await new Builder().forBrowser("chrome").build();
 
@@ -35,4 +35,4 @@ async function displayArticles(link) {
     }
 }
 
-displayArticles(link);
+findArticles(link);
