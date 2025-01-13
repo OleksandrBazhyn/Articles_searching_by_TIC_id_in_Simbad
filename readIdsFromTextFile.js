@@ -5,7 +5,7 @@ const fs = require("fs");
  * @param {string} filePath - Path to the file containing TIC IDs.
  * @returns {string[]} Array of TIC IDs.
  */
-function readTicIdsFromFile(filePath) {
+function readIdsFromTextFile(filePath) {
     try {
         const data = fs.readFileSync(filePath, "utf8");
         const ticIds = data.split("\n").map(line => line.trim()).filter(line => line !== "");
@@ -16,4 +16,4 @@ function readTicIdsFromFile(filePath) {
     }
 }
 
-module.exports = { readTicIdsFromFile };
+module.exports = { readIdsFromTextFile };
