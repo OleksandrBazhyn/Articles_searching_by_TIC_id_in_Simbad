@@ -1,6 +1,6 @@
 const { Builder, By } = require("selenium-webdriver");
 
-const testTIC = "TIC 103509957";
+const testTIC = "TIC 420111264";
 
 function buildLink(TIC_string) {
     if (typeof TIC_string !== "string") {
@@ -50,7 +50,7 @@ async function findArticles(link) {
             // Перевіряємо, чи поточне посилання є набором цифр
             if (/^\d+$/.test(currentText)) {
                 // Перевіряємо, чи попереднє посилання виглядає як назва статті
-                if (/^[0-9]{4}[A-Za-z]+\..*/.test(previousText)) {
+                if (previousText.trim() !== "") {
                     // Додаємо пару в масив
                     filteredPairs.push({
                         articleText: previousText,
