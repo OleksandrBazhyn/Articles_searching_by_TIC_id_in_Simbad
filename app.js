@@ -1,8 +1,11 @@
 const { buildLink } = require("./linkBuilder");
 const { findArticles } = require("./articleScraper");
 const { exportToJson } = require("./jsonExporter");
+const { readTicIdsFromFile } = require("./readTicIdsFromFile");
 
 const testTIC = "TIC 420111264";
+
+const inputTICs = readTicIdsFromFile("stars.txt");
 
 (async () => {
     const link = buildLink(testTIC);
