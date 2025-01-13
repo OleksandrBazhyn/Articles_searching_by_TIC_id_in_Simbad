@@ -1,5 +1,6 @@
 const { buildLink } = require("./linkBuilder");
 const { findArticles } = require("./articleScraper");
+const { exportToJson } = require("./jsonExporter");
 
 const testTIC = "TIC 420111264";
 
