@@ -26,50 +26,39 @@ async function findArticles(link) {
         const articleLinks = await driver.findElements(By.xpath('//a[contains(@href, "simbad/sim-ref?bibcode")]'));
 
         if (articleLinks.length === 0) {
-            console.log("Жодного посилання на статтю не знайдено.");
+            console.log("No link to the article was found.");
             return;
         }
 
-        // console.log(`Знайдено ${articleLinks.length} посилань.`);
 
-        // Масив для збереження відфільтрованих пар
-        const filteredPairs = [];
+        const filteredLinks = [];
 
-        // Ідемо з кінця масиву попарно
         for (let i = articleLinks.length - 1; i > 0; i -= 2) {
             const currentLink = articleLinks[i];
             const previousLink = articleLinks[i - 1];
 
-            // Отримуємо текст і посилання для обох
             const currentText = await currentLink.getText();
             const currentHref = await currentLink.getAttribute("href");
 
             const previousText = await previousLink.getText();
             const previousHref = await previousLink.getAttribute("href");
 
-            // Перевіряємо, чи поточне посилання є набором цифр
             if (/^\d+$/.test(currentText)) {
-                // Перевіряємо, чи попереднє посилання виглядає як назва статті
                 if (previousText.trim() !== "") {
-                    // Додаємо пару в масив
-                    filteredPairs.push({
+                    filteredLinks.push({
                         articleText: previousText,
                         articleHref: previousHref,
-                        numberText: currentText,
-                        numberHref: currentHref,
                     });
                 }
             }
         }
+        filteredLinks.reverse();
 
-        // Виводимо відфільтровані пари
-        console.log(`Знайдено ${filteredPairs.length} пар.`);
-        filteredPairs.reverse();
-        filteredPairs.forEach((pair, index) => {
+        console.log(`Found ${filteredLinks.length} articles.`);
+        
+        filteredLinks.forEach((pair, index) => {
             console.log(
-                `Пара ${index + 1}:\n` +
-                `  Стаття: ${pair.articleText} (${pair.articleHref})\n` +
-                `  Номер: ${pair.numberText} (${pair.numberHref})`
+                `Article ${index + 1}: ${pair.articleText} (${pair.articleHref})\n`
             );
         });
 
