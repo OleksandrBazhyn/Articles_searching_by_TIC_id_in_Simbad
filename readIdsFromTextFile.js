@@ -8,8 +8,7 @@ const fs = require("fs");
 function readIdsFromTextFile(filePath) {
     try {
         const data = fs.readFileSync(filePath, "utf8");
-        const ticIds = data.split("\n").map(line => line.trim()).filter(line => line !== "");
-        return ticIds;
+        return data.split("\n").map(line => line.trim()).filter(line => line !== "");
     } catch (error) {
         console.error(`Error reading file: ${error.message}`);
         return [];

@@ -3,34 +3,37 @@ const { findArticles } = require("./articleScraper");
 const { exportToJson } = require("./jsonExporter");
 const { readIdsFromTextFile } = require("./readIdsFromTextFile");
 
-const testTIC = "TIC 420111264";
-
 const inputTICs = readIdsFromTextFile("stars.txt");
 
 (async () => {
-    const link = buildLink(testTIC);
-    const articles = await findArticles(link);
+    console.log(`Processing ${inputTICs.length} TIC IDs...`);
 
-    if (articles.length > 0) {
-        console.log(`Found ${articles.length} articles:`);
-        articles.forEach((article, index) => {
-            console.log(`Article ${index + 1}: ${article.articleText} (${article.articleHref})`);
-        });
+    try {
+        const results = await Promise.all(
+            inputTICs.map(async (tic) => {
+                console.log(`Processing TIC: ${tic}`);
+                const link = buildLink(tic);
+                const articles = await findArticles(link);
 
-        const ticData = {
-            TIC: testTIC,
-            links: articles.map(article => article.articleHref),
-        };
+                if (articles.length > 0) {
+                    console.log(`Found ${articles.length} articles for ${tic}`);
+                } else {
+                    console.log(`No articles found for ${tic}`);
+                }
 
-        exportToJson(ticData);
-    } else {
-        console.error("No articles found for the given TIC.");
+                return {
+                    TIC: tic,
+                    links: articles.length > 0 
+                        ? articles.map(article => article.articleHref)
+                        : ["No data"],
+                };
+            })
+        );
 
-        const ticData = {
-            TIC: testTIC,
-            links: ["No data"],
-        };
-
-        exportToJson(ticData);
+        // Збереження результатів у JSON
+        exportToJson(results, "results.json");
+        console.log("All data has been collected and saved.");
+    } catch (error) {
+        console.error("Error during processing:", error);
     }
 })();
