@@ -41,7 +41,7 @@ async function findArticles(link) {
     } catch (error) {
         console.error(`Error during scraping:`, error);
     } finally {
-        await driver.quit(); // Гарантоване закриття драйвера
+        await driver.quit();
     }
 
     return filteredLinks;

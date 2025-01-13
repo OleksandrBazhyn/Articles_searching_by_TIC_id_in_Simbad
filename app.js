@@ -4,7 +4,7 @@ import { exportToJson } from "./jsonExporter.js";
 import { readIdsFromTextFile } from "./readIdsFromTextFile.js";
 import pLimit from "p-limit";
 
-const MAX_CONCURRENT_REQUESTS = 4; // Максимальна кількість паралельних запитів
+const MAX_CONCURRENT_REQUESTS = 4;
 const inputTICs = readIdsFromTextFile("stars.txt");
 
 (async () => {
