@@ -64,6 +64,7 @@ async function findArticles(link) {
 
         // Виводимо відфільтровані пари
         console.log(`Знайдено ${filteredPairs.length} пар.`);
+        filteredPairs.reverse();
         filteredPairs.forEach((pair, index) => {
             console.log(
                 `Пара ${index + 1}:\n` +
