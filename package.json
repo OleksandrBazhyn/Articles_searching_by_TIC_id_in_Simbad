@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "p-limit": "^6.2.0",
     "selenium-webdriver": "^4.27.0"
   }
 }
