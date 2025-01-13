@@ -13,7 +13,21 @@ const testTIC = "TIC 420111264";
         articles.forEach((article, index) => {
             console.log(`Article ${index + 1}: ${article.articleText} (${article.articleHref})`);
         });
+
+        const ticData = {
+            TIC: testTIC,
+            links: articles.map(article => article.articleHref),
+        };
+
+        exportToJson(ticData);
     } else {
-        console.log("No articles found for the given TIC.");
+        console.error("No articles found for the given TIC.");
+
+        const ticData = {
+            TIC: testTIC,
+            links: ["No data"],
+        };
+
+        exportToJson(ticData);
     }
 })();
